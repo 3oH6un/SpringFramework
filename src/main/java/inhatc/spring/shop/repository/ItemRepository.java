@@ -38,6 +38,7 @@ public interface ItemRepository  extends JpaRepository<Item, Long> {
     // 2.  JPQL 이용해서 위에 조건
     @Query("SELECT i FROM Item i WHERE i.stockNumber >= :stockNumber AND i.itemNm LIKE %:itemNm%")
     List<Item> findByStockAndName(@Param("stockNumber") Integer stockNumber, @Param("itemNm") String itemNm);
+    // 문자열을 받아올 때는 %:string%, 숫자를 받아올 때는 :number로 사용한다.
 
     // 3.  Native 로 위에 조건
     @Query(value = "SELECT * FROM Item WHERE stock_number >= :stockNumber AND item_nm LIKE %:itemNm%", nativeQuery = true)
