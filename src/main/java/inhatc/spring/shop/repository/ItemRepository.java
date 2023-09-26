@@ -20,7 +20,7 @@ public interface ItemRepository  extends JpaRepository<Item, Long> {
     @Query("SELECT i FROM Item i WHERE i.itemDetail LIKE %:itemDetail% ORDER BY i.price DESC")
     List<Item> findByDetail(@Param("itemDetail") String itemDetail);                // JPQL
 
-    @Query(value = "SELECT * FROM Item WHERE item_detail LIKE %:itemDetail% ORDER BY price ASC", nativeQuery = true)
+    @Query(value = "SELECT * FROM Item WHERE item_detail LIKE %:itemDetail% ORDER BY price DESC", nativeQuery = true)
     List<Item> findByDetailNative(@Param("itemDetail") String itemDetail);                // Native
 
     /**
@@ -36,11 +36,11 @@ public interface ItemRepository  extends JpaRepository<Item, Long> {
     List<Item> findByStockNumberGreaterThanEqualAndItemNmContaining(Integer stockNumber, String itemNm);
 
     // 2.  JPQL 이용해서 위에 조건
-    @Query("SELECT i FROM Item i WHERE i.stockNumber >= %:stockNumber% AND i.itemNm LIKE %:itemNm%")
+    @Query("SELECT i FROM Item i WHERE i.stockNumber >= :stockNumber AND i.itemNm LIKE %:itemNm%")
     List<Item> findByStockAndName(@Param("stockNumber") Integer stockNumber, @Param("itemNm") String itemNm);
 
     // 3.  Native 로 위에 조건
-    @Query(value = "SELECT * FROM Item WHERE stock_number >= %:stockNumber% AND item_nm LIKE %:itemNm%", nativeQuery = true)
+    @Query(value = "SELECT * FROM Item WHERE stock_number >= :stockNumber AND item_nm LIKE %:itemNm%", nativeQuery = true)
     List<Item> findByStockAndNameNative(@Param("stockNumber") Integer stockNumber, @Param("itemNm") String itemNm);
 
     // 4.  querydsl로 위에 조건
