@@ -98,9 +98,7 @@ public class ItemRepositoryTest {
         Page<Item> page = itemRepository.findAll(builder, pageable);
         List<Item> content = page.getContent();
 
-        content.stream().forEach(e -> {
-            System.out.println(e);
-        });
+        content.forEach(System.out::println);
 
     }
 
@@ -125,9 +123,7 @@ public class ItemRepositoryTest {
     public void findByDetailTest() {
         createItemList();
         itemRepository.findByDetail("1")
-                .forEach(item -> {
-                    System.out.println(item);
-                });
+                .forEach(System.out::println);
     }
 
     @Test
@@ -135,9 +131,7 @@ public class ItemRepositoryTest {
     public void findByDetailNativeTest() {
         createItemList();
         itemRepository.findByDetailNative("1")
-                .forEach(item -> {
-                    System.out.println(item);
-                });
+                .forEach(System.out::println);
     }
 
     @Test
@@ -145,7 +139,7 @@ public class ItemRepositoryTest {
     public void findByPriceLessThanOrderByPriceDescTest() {
         createItemList();
         itemRepository.findByPriceLessThanOrderByPriceDesc(10005)
-                .forEach((item -> System.out.println(item)));
+                .forEach((System.out::println));
     }
 
     @Test
@@ -153,9 +147,7 @@ public class ItemRepositoryTest {
     public void findByItemNmOrItemDetail(){
         createItemList();
         List<Item> itemList = itemRepository.findByItemNmOrItemDetail("테스트 상품2", "테스트 상품 상세 설명8");
-        itemList.forEach((item)->{
-            System.out.println(item);
-        });
+        itemList.forEach(System.out::println);
     }
 
     @Test
