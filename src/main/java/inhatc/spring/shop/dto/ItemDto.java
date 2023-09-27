@@ -1,10 +1,5 @@
 package inhatc.spring.shop.dto;
 
-import inhatc.spring.shop.constant.ItemSellStatus;
-import jakarta.persistence.Column;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.Lob;
 import lombok.*;
 
 import java.time.LocalDateTime;
