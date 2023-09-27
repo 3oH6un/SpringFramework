@@ -1,13 +1,19 @@
 package inhatc.spring.shop.repository;
 
+import com.querydsl.core.BooleanBuilder;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import inhatc.spring.shop.constant.ItemSellStatus;
 import inhatc.spring.shop.entity.Item;
+import inhatc.spring.shop.entity.QItem;
 import jakarta.persistence.EntityManager;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.thymeleaf.util.StringUtils;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -39,6 +45,63 @@ public class ItemRepositoryTest {
 
             itemRepository.save(item);
         }
+    }
+
+    public void createItemList2(){
+        for(int i=1;i<=5;i++){
+            Item item = new Item();
+            item.setItemNm("테스트 상품" + i);
+            item.setPrice(10000 + i);
+            item.setItemDetail("테스트 상품 상세 설명" + i);
+            item.setItemSellStatus(ItemSellStatus.SELL);
+            item.setStockNumber(100);
+            item.setRegTime(LocalDateTime.now());
+            item.setUpdateTime(LocalDateTime.now());
+            itemRepository.save(item);
+        }
+
+        for(int i=6;i<=10;i++){
+            Item item = new Item();
+            item.setItemNm("테스트 상품" + i);
+            item.setPrice(10000 + i);
+            item.setItemDetail("테스트 상품 상세 설명" + i);
+            item.setItemSellStatus(ItemSellStatus.SOLD_OUT);
+            item.setStockNumber(0);
+            item.setRegTime(LocalDateTime.now());
+            item.setUpdateTime(LocalDateTime.now());
+            itemRepository.save(item);
+        }
+    }
+
+    // 페이징 폼 미쳤다 ㄷㄷ
+    @Test
+    @DisplayName("querydsl 테스트 2")
+    public void querydslTest2() {
+        createItemList2();
+
+        BooleanBuilder builder = new BooleanBuilder();
+        String itemDetail = "테스트";
+        int price = 10002;
+        String itemSellStatus = "SELL";
+
+        QItem item = QItem.item;
+
+        builder.and(item.itemDetail.like("%" + itemDetail + "%"));
+        builder.and(item.price.gt(price));
+
+        if(StringUtils.equals(itemSellStatus, ItemSellStatus.SELL)) {
+            builder.and(item.itemSellStatus.eq(ItemSellStatus.SELL));
+        }
+
+        Pageable pageable = PageRequest.of(0, 5);
+
+        Page<Item> page = itemRepository.findAll(builder, pageable);
+        List<Item> content = page.getContent();
+
+        content.stream().forEach(e -> {
+            System.out.println(e);
+        });
+
     }
 
     @Test

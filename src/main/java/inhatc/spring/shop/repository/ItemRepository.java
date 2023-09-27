@@ -3,11 +3,12 @@ package inhatc.spring.shop.repository;
 import inhatc.spring.shop.entity.Item;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.querydsl.QuerydslPredicateExecutor;
 import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
-public interface ItemRepository  extends JpaRepository<Item, Long> {
+public interface ItemRepository  extends JpaRepository<Item, Long>, QuerydslPredicateExecutor<Item> {
 
     List<Item> findByItemNm(String itemNm);     // 해당 이름에 대한 상품 리스트 가져오기
 
@@ -41,7 +42,7 @@ public interface ItemRepository  extends JpaRepository<Item, Long> {
     // 문자열을 받아올 때는 %:string%, 숫자를 받아올 때는 :number로 사용한다.
 
     // 3.  Native 로 위에 조건
-    @Query(value = "SELECT * FROM Item WHERE stock_number >= :stockNumber AND item_nm LIKE %:itemNm%", nativeQuery = true)
+    @Query(value = "SELECT * FROM Item i WHERE i.stock_number >= :stockNumber AND i.item_nm LIKE %:itemNm%", nativeQuery = true)
     List<Item> findByStockAndNameNative(@Param("stockNumber") Integer stockNumber, @Param("itemNm") String itemNm);
 
     // 4.  querydsl로 위에 조건
