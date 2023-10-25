@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Title</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+</head>
+<body>
+    <h1>Ex2 페이지 입니다.</h1>
+    <div>
+        <a href="/thymeleaf/ex1">예제 1 페이지 이동</a>
+    </div>
+<!--    타임리프 href (th:href="@{<여기에 링크>}"-->
+    <div>
+        <a th:href="@{/thymeleaf/ex1}">예제 1 페이지 이동</a>
+    </div>
+    <div>
+        <a th:href="@{/thymeleaf/ex3(param1='홍길동', param2='인하공전')}">파라미터 전달</a>
+    </div>
+    <div>
+        <a th:href="@{https://www.naver.com}">네이버 페이지 이동</a>
+    </div>
+</body>
+</html>
