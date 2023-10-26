@@ -36,6 +36,10 @@ dependencies {
     implementation 'nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect'
     // 스프링 부트 시큐리티
     implementation 'org.springframework.boot:spring-boot-starter-security'
+    // 스프링 부트 밸리데이션
+    implementation 'org.springframework.boot:spring-boot-starter-validation'
+    // 타임리프 스프링 시큐리티
+    implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity'
 
 
     compileOnly 'org.projectlombok:lombok'

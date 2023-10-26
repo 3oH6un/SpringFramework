@@ -14,11 +14,30 @@ import org.springframework.security.web.SecurityFilterChain;
 public class SecurityConfig {
 
     @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+    public SecurityFilterChain fitterChain(HttpSecurity http) throws Exception{
 
-//        보안설정
-        http.formLogin(Customizer.withDefaults());
+        //http.formLogin(Customizer.withDefaults());
+        //http.logout(Customizer.withDefaults());
+
+        http.formLogin(form -> form
+                .loginPage("/member/login")
+                .defaultSuccessUrl("/")
+                .failureUrl("/member/login/error")
+                .usernameParameter("email")
+                .passwordParameter("password")
+                .permitAll());
+
         http.logout(Customizer.withDefaults());
+
+        // 각 페이지에 대한 접근 권한 설정
+        http.authorizeHttpRequests(request -> request
+                .requestMatchers("/css/**").permitAll()
+                .requestMatchers("/", "/member/**").permitAll()
+                .anyRequest().authenticated());
+
+        // 권한 없는 경우에 대한 예외 처리
+        http.exceptionHandling(exception -> exception
+                .authenticationEntryPoint(new CustomAuthenticationEntryPoint()));
 
         return http.build();
     }
@@ -27,5 +46,5 @@ public class SecurityConfig {
     public PasswordEncoder passwordEncoder() {
 
         return new BCryptPasswordEncoder();
-    };
+    }
 }

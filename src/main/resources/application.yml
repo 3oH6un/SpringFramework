@@ -2,13 +2,16 @@ server:
   port: 80
 
 spring:
+
   application:
     name: "shop_a"
+
   devtools:
     restart:
       enabled: true
     livereload:
       enabled: true
+
   thymeleaf:
     cache: false
 
