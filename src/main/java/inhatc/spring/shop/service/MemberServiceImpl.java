@@ -49,7 +49,7 @@ public class MemberServiceImpl implements MemberService, UserDetailsService {
         Member member = memberRepository.findByEmail(email).orElseThrow(() ->
                 new UsernameNotFoundException("해당 사용자를 찾을 수 없습니다. : " + email));
 
-        log.info("[로그인 된 사용자] : " + member);
+        log.info("[로그인 요청 정보] : " + member);
 
         // 스프링 시큐리티에서 제공하는 User 객체를 만들어 반환
         return User.builder()

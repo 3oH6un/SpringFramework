@@ -33,6 +33,7 @@ public class SecurityConfig {
         http.authorizeHttpRequests(request -> request
                 .requestMatchers("/css/**").permitAll()
                 .requestMatchers("/", "/member/**").permitAll()
+                .requestMatchers("/admin/**").hasRole("ADMIN")
                 .anyRequest().authenticated());
 
         // 권한 없는 경우에 대한 예외 처리
