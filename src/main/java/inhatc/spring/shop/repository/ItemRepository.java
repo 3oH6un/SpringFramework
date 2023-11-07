@@ -10,9 +10,9 @@ import java.util.List;
 
 public interface ItemRepository  extends JpaRepository<Item, Long>, QuerydslPredicateExecutor<Item> {
 
-    List<Item> findByItemNm(String itemNm);     // 해당 이름에 대한 상품 리스트 가져오기
+    List<Item> findByItemName(String itemName);     // 해당 이름에 대한 상품 리스트 가져오기
 
-    List<Item> findByItemNmOrItemDetail(String itemNm, String itemDetail);
+    List<Item> findByItemNameOrItemDetail(String itemName, String itemDetail);
 
     List<Item> findByPriceLessThan(Integer price);
 
@@ -34,16 +34,16 @@ public interface ItemRepository  extends JpaRepository<Item, Long>, QuerydslPred
      * 4.  querydsl로 위에 조건
      */
     // 1.  쿼리 메소드 (재고량과 이름으로 검색)
-    List<Item> findByStockNumberGreaterThanEqualAndItemNmContaining(Integer stockNumber, String itemNm);
+    List<Item> findByStockNumberGreaterThanEqualAndItemNameContaining(Integer stockNumber, String itemName);
 
     // 2.  JPQL 이용해서 위에 조건
-    @Query("SELECT i FROM Item i WHERE i.stockNumber >= :stockNumber AND i.itemNm LIKE %:itemNm%")
-    List<Item> findByStockAndName(@Param("stockNumber") Integer stockNumber, @Param("itemNm") String itemNm);
+    @Query("SELECT i FROM Item i WHERE i.stockNumber >= :stockNumber AND i.itemName LIKE %:itemName%")
+    List<Item> findByStockAndName(@Param("stockNumber") Integer stockNumber, @Param("itemName") String itemName);
     // 문자열을 받아올 때는 %:string%, 숫자를 받아올 때는 :number로 사용한다.
 
     // 3.  Native 로 위에 조건
-    @Query(value = "SELECT * FROM Item i WHERE i.stock_number >= :stockNumber AND i.item_nm LIKE %:itemNm%", nativeQuery = true)
-    List<Item> findByStockAndNameNative(@Param("stockNumber") Integer stockNumber, @Param("itemNm") String itemNm);
+    @Query(value = "SELECT * FROM Item i WHERE i.stock_number >= :stockNumber AND i.item_nm LIKE %:itemName%", nativeQuery = true)
+    List<Item> findByStockAndNameNative(@Param("stockNumber") Integer stockNumber, @Param("itemName") String itemName);
 
     // 4.  querydsl로 위에 조건
 

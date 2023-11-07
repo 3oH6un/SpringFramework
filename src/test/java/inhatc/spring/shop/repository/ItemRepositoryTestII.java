@@ -35,7 +35,7 @@ class ItemRepositoryTestII {
     public void createItemList() {
         for (int i = 100; i <= 200; i++) {
             Item item = Item.builder()
-                    .itemNm("테스트 상품 " + i)
+                    .itemName("테스트 상품 " + i)
                     .price(10000 + i)
                     .stockNumber(i)
                     .itemDetail("테스트 상품 상세 설명 " + i)
@@ -52,7 +52,7 @@ class ItemRepositoryTestII {
     @DisplayName("1. 쿼리 메소드 (재고량과 이름으로 검색)")
     void findByStockNumberGreaterThanEqualAndItemNmContainingTest() {
         createItemList();
-        List<Item> itemList = itemRepository.findByStockNumberGreaterThanEqualAndItemNmContaining(160, "5");
+        List<Item> itemList = itemRepository.findByStockNumberGreaterThanEqualAndItemNameContaining(160, "5");
         itemList.forEach(item -> System.out.println("========== 검색 결과 : " + item));
     }
 
@@ -80,7 +80,7 @@ class ItemRepositoryTestII {
 
         List<Item> itemList = query.selectFrom(item)
                 .where(item.stockNumber.gt(160))
-                .where(item.itemNm.contains("5"))
+                .where(item.itemName.contains("5"))
                 .fetch();
 
         itemList.forEach(item -> System.out.println("========== 검색 결과 : " + item));

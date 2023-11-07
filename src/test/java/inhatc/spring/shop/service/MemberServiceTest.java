@@ -13,7 +13,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @SpringBootTest
-//@Transactional
+@Transactional
 //@Rollback(value = false)
 public class MemberServiceTest {
 
@@ -40,7 +40,7 @@ public class MemberServiceTest {
 
     @Test
     @DisplayName("회원가입 테스트")
-//    @Transactional
+    @Transactional
     void saveMemberTest() {
 
         Member member = createMember();
@@ -67,6 +67,6 @@ public class MemberServiceTest {
             memberService.saveMember(member2);
         });
 
-        assertEquals("이미 존재하는 회원입니다.", e.getMessage());
+        assertEquals("이미 가입된 회원입니다.", e.getMessage());
     }
 }

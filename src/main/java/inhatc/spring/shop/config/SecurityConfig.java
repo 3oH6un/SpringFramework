@@ -16,9 +16,6 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain fitterChain(HttpSecurity http) throws Exception{
 
-        //http.formLogin(Customizer.withDefaults());
-        //http.logout(Customizer.withDefaults());
-
         http.formLogin(form -> form
                 .loginPage("/member/login")
                 .defaultSuccessUrl("/")

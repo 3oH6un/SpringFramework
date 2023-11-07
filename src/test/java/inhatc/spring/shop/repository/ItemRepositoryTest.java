@@ -34,7 +34,7 @@ public class ItemRepositoryTest {
     public void createItemList() {
         for (int i = 1; i <= 10; i++) {
             Item item = Item.builder()
-                    .itemNm("테스트 상품 " + i)
+                    .itemName("테스트 상품 " + i)
                     .price(10000 + i)
                     .stockNumber(100 + i)
                     .itemDetail("테스트 상품 상세 설명 " + i)
@@ -50,7 +50,7 @@ public class ItemRepositoryTest {
     public void createItemList2(){
         for(int i=1;i<=5;i++){
             Item item = new Item();
-            item.setItemNm("테스트 상품" + i);
+            item.setItemName("테스트 상품" + i);
             item.setPrice(10000 + i);
             item.setItemDetail("테스트 상품 상세 설명" + i);
             item.setItemSellStatus(ItemSellStatus.SELL);
@@ -62,7 +62,7 @@ public class ItemRepositoryTest {
 
         for(int i=6;i<=10;i++){
             Item item = new Item();
-            item.setItemNm("테스트 상품" + i);
+            item.setItemName("테스트 상품" + i);
             item.setPrice(10000 + i);
             item.setItemDetail("테스트 상품 상세 설명" + i);
             item.setItemSellStatus(ItemSellStatus.SOLD_OUT);
@@ -146,7 +146,7 @@ public class ItemRepositoryTest {
     @DisplayName("OR 테스트")
     public void findByItemNmOrItemDetail(){
         createItemList();
-        List<Item> itemList = itemRepository.findByItemNmOrItemDetail("테스트 상품2", "테스트 상품 상세 설명8");
+        List<Item> itemList = itemRepository.findByItemNameOrItemDetail("테스트 상품2", "테스트 상품 상세 설명8");
         itemList.forEach(System.out::println);
     }
 
@@ -165,7 +165,7 @@ public class ItemRepositoryTest {
     public void findByItemNmTest() {
         createItemList();
 
-        List<Item> itemList = itemRepository.findByItemNm("테스트 상품 1");
+        List<Item> itemList = itemRepository.findByItemName("테스트 상품 1");
         itemList.forEach(item -> System.out.println("=======검색 결과: " + item));
     }
 
@@ -173,7 +173,7 @@ public class ItemRepositoryTest {
     @DisplayName("상품 생성 테스트")
     public void createItemTest() {
         Item item = Item.builder()
-                .itemNm("테스트 상품")
+                .itemName("테스트 상품")
                 .price(10000)
                 .stockNumber(100)
                 .itemDetail("테스트 상품 상세 설명")

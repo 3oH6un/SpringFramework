@@ -32,16 +32,13 @@ public class Member {
     private Role role;
 
     public static Member createMember(MemberFormDto memberFormDto, PasswordEncoder passwordEncoder) {
-        Member member = Member.builder()
+
+        return Member.builder()
                 .name(memberFormDto.getName())
                 .email(memberFormDto.getEmail())
                 .address(memberFormDto.getAddress())
+                .password(passwordEncoder.encode(memberFormDto.getPassword()))
                 .role(Role.USER)
                 .build();
-
-//        비밀번호 암호화
-        member.setPassword(passwordEncoder.encode(memberFormDto.getPassword()));
-
-        return member;
     }
 }

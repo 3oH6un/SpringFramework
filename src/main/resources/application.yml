@@ -2,31 +2,27 @@ server:
   port: 80
 
 spring:
-
   application:
     name: "shop_a"
 
+  thymeleaf:
+    cache: false
+
+  ###############################################
+  # DevTools Setting
+  ###############################################
   devtools:
     restart:
       enabled: true
     livereload:
       enabled: true
 
-  thymeleaf:
-    cache: false
-
-  security:
-    user:
-      name: user
-      password: 1111
-
-
   ###############################################
   # MySQL Setting
   ###############################################
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/shop_a?serverTimezone=UTC&useUnicode=true&characterEncoding=utf8&allowPublicKeyRetrieval=true&useSSL=false
+    url: jdbc:mysql://localhost:3306/shop?serverTimezone=UTC&useUnicode=true&characterEncoding=utf8&allowPublicKeyRetrieval=true&useSSL=false
     username: root
     password: 201945022
 
@@ -36,8 +32,8 @@ spring:
   jpa:
     open-in-view: true
     hibernate:
-#      ddl-auto: update
-      ddl-auto: create
+      ddl-auto: update
+#      ddl-auto: create
       naming:
         physical-strategy: org.hibernate.boot.model.naming.CamelCaseToUnderscoresNamingStrategy
     show-sql: true
@@ -45,6 +41,14 @@ spring:
       hibernate:
         format_sql: true
     database-platform: org.hibernate.dialect.MySQL8Dialect
+
+  ###############################################
+  # Security Setting
+  ###############################################
+  security:
+    user:
+      name: user
+      password: 1111
 
 ###############################################
 # Logging

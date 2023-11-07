@@ -36,7 +36,7 @@ public class ThymeleafController {
     public String ex1(Model model) {
 
         ItemDto itemDto = ItemDto.builder()
-                .itemNm("최신 스프링")
+                .itemName("최신 스프링")
                 .itemDetail("스프링 부트 3.1.4")
                 .itemSellStatus("SELL")
                 .price(20000)
