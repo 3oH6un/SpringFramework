@@ -19,17 +19,19 @@ import java.util.List;
 public class Order {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @JoinColumn(name = "order_id")
+    @Column(name = "order_id")
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
     private Member member;
 
+    @OneToMany(mappedBy = "order", fetch = FetchType.LAZY,
+            cascade = CascadeType.ALL, orphanRemoval = true)
+    @Builder.Default
+    private List<OrderItem> orderItems = new ArrayList<>();
+
     private LocalDateTime orderDate;
 
     @Enumerated(EnumType.STRING)
     private OrderStatus orderStatus;
-
-    @OneToMany(mappedBy = "order", fetch = FetchType.LAZY)
-    private List<OrderItem> orderItems = new ArrayList<>();
 }

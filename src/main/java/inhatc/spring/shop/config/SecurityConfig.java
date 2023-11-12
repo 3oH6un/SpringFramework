@@ -14,7 +14,7 @@ import org.springframework.security.web.SecurityFilterChain;
 public class SecurityConfig {
 
     @Bean
-    public SecurityFilterChain fitterChain(HttpSecurity http) throws Exception{
+    public SecurityFilterChain fitterChain(HttpSecurity http) throws Exception {
 
         http.formLogin(form -> form
                 .loginPage("/member/login")
