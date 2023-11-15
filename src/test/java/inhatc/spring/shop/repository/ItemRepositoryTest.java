@@ -15,7 +15,6 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.thymeleaf.util.StringUtils;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 import static inhatc.spring.shop.entity.QItem.item;
@@ -39,36 +38,30 @@ public class ItemRepositoryTest {
                     .stockNumber(100 + i)
                     .itemDetail("테스트 상품 상세 설명 " + i)
                     .itemSellStatus(ItemSellStatus.SELL)
-                    .regTime(LocalDateTime.now())
-                    .updateTime(LocalDateTime.now())
                     .build();
 
             itemRepository.save(item);
         }
     }
 
-    public void createItemList2(){
-        for(int i=1;i<=5;i++){
+    public void createItemList2() {
+        for (int i = 1; i <= 5; i++) {
             Item item = new Item();
             item.setItemName("테스트 상품" + i);
             item.setPrice(10000 + i);
             item.setItemDetail("테스트 상품 상세 설명" + i);
             item.setItemSellStatus(ItemSellStatus.SELL);
             item.setStockNumber(100);
-            item.setRegTime(LocalDateTime.now());
-            item.setUpdateTime(LocalDateTime.now());
             itemRepository.save(item);
         }
 
-        for(int i=6;i<=10;i++){
+        for (int i = 6; i <= 10; i++) {
             Item item = new Item();
             item.setItemName("테스트 상품" + i);
             item.setPrice(10000 + i);
             item.setItemDetail("테스트 상품 상세 설명" + i);
             item.setItemSellStatus(ItemSellStatus.SOLD_OUT);
             item.setStockNumber(0);
-            item.setRegTime(LocalDateTime.now());
-            item.setUpdateTime(LocalDateTime.now());
             itemRepository.save(item);
         }
     }
@@ -89,7 +82,7 @@ public class ItemRepositoryTest {
         builder.and(item.itemDetail.like("%" + itemDetail + "%"));
         builder.and(item.price.gt(price));
 
-        if(StringUtils.equals(itemSellStatus, ItemSellStatus.SELL)) {
+        if (StringUtils.equals(itemSellStatus, ItemSellStatus.SELL)) {
             builder.and(item.itemSellStatus.eq(ItemSellStatus.SELL));
         }
 
@@ -144,7 +137,7 @@ public class ItemRepositoryTest {
 
     @Test
     @DisplayName("OR 테스트")
-    public void findByItemNmOrItemDetail(){
+    public void findByItemNmOrItemDetail() {
         createItemList();
         List<Item> itemList = itemRepository.findByItemNameOrItemDetail("테스트 상품2", "테스트 상품 상세 설명8");
         itemList.forEach(System.out::println);
@@ -152,10 +145,10 @@ public class ItemRepositoryTest {
 
     @Test
     @DisplayName("가격 LessThan 테스트")
-    public void findByPriceLessThanTest(){
+    public void findByPriceLessThanTest() {
         createItemList();
         List<Item> itemList = itemRepository.findByPriceLessThan(10005);
-        for(Item item : itemList){
+        for (Item item : itemList) {
             System.out.println(item.toString());
         }
     }
@@ -178,8 +171,6 @@ public class ItemRepositoryTest {
                 .stockNumber(100)
                 .itemDetail("테스트 상품 상세 설명")
                 .itemSellStatus(ItemSellStatus.SELL)
-                .regTime(LocalDateTime.now())
-                .updateTime(LocalDateTime.now())
                 .build();
 
         System.out.println("============================================= item = " + item);

@@ -32,7 +32,7 @@ spring:
   jpa:
     open-in-view: true
     hibernate:
-      ddl-auto: update
+      ddl-auto: update  # update, create, create-drop, none, validate
 #      ddl-auto: create
       naming:
         physical-strategy: org.hibernate.boot.model.naming.CamelCaseToUnderscoresNamingStrategy
@@ -49,6 +49,17 @@ spring:
     user:
       name: user
       password: 1111
+
+  ###############################################
+  # Servlet Setting
+  ###############################################
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 100MB
+
+itemImgLocation: ~/Documents/WorkSpace/IDEA/SpringFrameworkImg/item
+uploadPath: file:///~/Documents/WorkSpace/IDEA/SpringFrameworkImg
 
 ###############################################
 # Logging

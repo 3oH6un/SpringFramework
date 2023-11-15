@@ -1,9 +1,11 @@
 package inhatc.spring.shop.service;
 
+import inhatc.spring.shop.dto.MemberFormDto;
 import inhatc.spring.shop.entity.Member;
 import inhatc.spring.shop.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.modelmapper.ModelMapper;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -19,10 +21,12 @@ import java.util.Optional;
 public class MemberServiceImpl implements MemberService, UserDetailsService {
 
     private final MemberRepository memberRepository;
+    private final ModelMapper modelMapper;
 
     @Override
     public Member saveMember(Member member) {
 
+        MemberFormDto memberFormDto = modelMapper.map(member, MemberFormDto.class);
         validateDuplicateMember(member);
         return memberRepository.save(member);
     }
